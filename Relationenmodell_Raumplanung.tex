@@ -1,0 +1,60 @@
+\documentclass[a4paper,DIV=calc,11pt]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} %Zeichencodierung
+\usepackage[ngerman]{babel} %Sprachpaket
+\usepackage{setspace} % Einstellungen für den Zeilenabstand
+\usepackage{libertine} % Schriftart
+\usepackage[scaled=.7]{beramono}
+\usepackage{microtype} %typografische Verbesserungen
+\usepackage[colorlinks=false,pdfborder={0 0 0},bookmarksnumbered]{hyperref}
+
+\begin{document}
+\oddsidemargin = 5pt
+\hypersetup{
+	pdftitle={Titel des Dokuments},
+	pdfauthor={Mein Name},
+	pdfsubject={Thema der Arbeit}
+	}
+	
+\onehalfspace % 1,5-facher Zeilenabstand
+	
+\title{Raumplanung - relationales Datenbankmodell}
+\maketitle %gibt die Titelangaben aus
+
+
+\section*{ohne Verschmelzung}
+\begin{tabular}{l l}
+Nutzer & $\underline{Name}$, Passwort\\
+Geraet & $\underline{Typ}$\\
+Standort & $\underline{SID}$, PLZ, Stadt, Straße, Hausnummer\\
+Raum & $\underline{RID}$, Nummer, Etage\\
+Platz & $\underline{PID}$\\
+nutzt & $\underline{\overline{Nutzer.Name}, \overline{Geraet.Typ}}$\\
+verfuegbar & $\underline{\overline{Platz.PID}, \overline{Geraet.Typ}}$\\
+besetzt & $\underline{\overline{Nutzer.Name}, \overline{Platz.PID}}$, Datum\\
+arbeitet & $\underline{\overline{Nutzer.Name}}$, $\overline{Standort.SID}$\\
+enthaelt & $\overline{Raum.RID}$, $\underline{\overline{Platz.PID}}$\\
+zu & $\underline{\overline{Raum.RID}}$, $\overline{Standort.SID}$\\
+\end{tabular}
+
+\section*{mit Verschmelzung}
+\begin{tabular}{l l}
+Nutzer & $\underline{Name}$, Passwort, $\overline{Standort.SID}$\\
+Geraet & $\underline{Typ}$\\
+Standort & $\underline{SID}$, PLZ, Stadt, Straße, Hausnummer\\
+Raum & $\underline{RID}$, Nummer, Etage, $\overline{Standort.SID}$\\
+Platz & $\underline{PID},\overline{Raum.RID}$\\
+nutzt & $\underline{\overline{Nutzer.Name}, \overline{Geraet.Typ}}$\\
+verfuegbar & $\underline{\overline{Platz.PID}, \overline{Geraet.Typ}}$\\
+besetzt & $\underline{\overline{Nutzer.Name}, \overline{Platz.PID}}$, Datum\\
+\end{tabular}
+
+\begin{spacing}{10}
+.\\
+\end{spacing}
+
+
+
+Anmerkung: $\underline{Primaerschluessel}, \overline{Fremdschluessel}$
+
+\end{document}
