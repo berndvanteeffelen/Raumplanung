@@ -1,49 +1,46 @@
-CREATE TABLE STANDORT{
-  Stadt      VARCHAR NOT NULL CHECK(length(Stadt)>1 AND length(Stadt)<50 AND Stadt NOT GLOB '*[^ -~]*'),
-  PLZ        INTEGER NOT NULL CHECK(PLZ>1000 AND PLZ<100000),
-  Strasse    VARCHAR NOT NULL CHECK(length(Strasse)>1 AND length(Strasse)<50 AND Strasse NOT GLOB '*[^ -~]*'),
-  Hausnummer INTEGER NOT NULL CHECK(Hausnummer>0 AND Hausnummer<2000),
-  SID        INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT
-};
-CREATE TABLE NUTZER{
-  Name       VARCHAR NOT NULL CHECK(length(Name)>1 AND length(Name)<50 AND LAND NOT GLOB '[^ -~]') PRIMARY KEY,--TBC
-  Passwort   VARCHAR NOT NULL CHECK(length(Passwort)>2 AND length(Passwort)<50 AND Passwort NOT GLOB '*[^ -~]*' AND Passwort GLOB '*[A-Z]*[A-Z]*' AND Passwort GLOB '*[0-9]*'),--TBC
-  SID        INTEGER REFERENCES STANDORT (SID)
-};
-CREATE TABLE GERAET{
-  Typ        VARCHAR NOT NULL CHECK(length(Name)>1 AND length(Name)<50 AND LAND NOT GLOB '[^ -~]') PRIMARY KEY,
-};
-CREATE TABLE RAUM{
-  Nummer     INTEGER NOT NULL CHECK(Nummer>0 AND Nummer<100),--TBC
-  Etage      INTEGER NOT NULL CHECK(Etage>-2 AND Etage<50),--TBC
-  SID        INTEGER REFERENCES STANDORT (SID),
-  RID        INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT
-};
-CREATE TABLE PLATZ{
-  PID        INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT
-};
-CREATE TABLE NUTZT{
-  Name VARCHAR REFERENCES NUTZER (Name),
-  Typ  VARCHAR REFERENCES GERAET (Typ),
+CREATE TABLE NUTZER(
+  Personalnummer INTEGER NOT NULL CHECK(Personalnummer>1 AND Personalnummer<10000000000) PRIMARY KEY,--Identifikationsnummer des Nutzers
+  Passwort       VARCHAR NOT NULL CHECK(length(Passwort)>7 AND length(Passwort)<21 AND Passwort NOT GLOB '*[^ -~]*' AND Passwort GLOB '*[A-Z]*' AND Passwort GLOB '*[a-z]*' AND Passwort GLOB '*[0-9]*')--Passwort muss 8-20 Zeichen enthalten, davon je mindestens ein Klein- und ein Großbuchstabe und eine Zahl
+);
+CREATE TABLE ADMIN(
+  Personalnummer VARCHAR REFERENCES NUTZER(Personalnummer) PRIMARY KEY
+);
+CREATE TABLE GERAET(
+  Typ        VARCHAR NOT NULL PRIMARY KEY CHECK(length(Typ)>1 AND length(Typ)<50 AND Typ NOT GLOB '[^ -~]')--Typ des Geraets, bspw. 'Laptop' oder 'Tablet'
+);
+CREATE TABLE RAUM(
+  Nummer     INTEGER NOT NULL PRIMARY KEY CHECK(Nummer>0 AND Nummer<100000)--Bereits vorhandene Raumnummer
+);
+CREATE TABLE PLATZ(
+  Position   INTEGER NOT NULL CHECK(Position>0 AND Position<5),--Durchnummerierung von Arbeitsplätzen innerhalb desselben Raums
+  PID        INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT,
+  Nummer     INTEGER REFERENCES RAUM(Nummer)
+);
+CREATE TABLE NUTZT(
+  Personalnummer VARCHAR REFERENCES NUTZER (Personalnummer),
+  Typ            VARCHAR REFERENCES GERAET (Typ),
   PRIMARY KEY (
-      Name,
-      Typ
+    Personalnummer,
+    Typ
   )
-};
-CREATE TABLE VERFUEGBAR{
+);
+CREATE TABLE VERFUEGBAR(
   PID INTEGER REFERENCES PLATZ (PID),
-  Typ  VARCHAR REFERENCES GERAET (Typ),
+  Typ VARCHAR REFERENCES GERAET (Typ),
   PRIMARY KEY (
-      PID,
-      Typ
+    PID,
+    Typ
   )
-};
-CREATE TABLE BESETZT{
-  Name VARCHAR REFERENCES NUTZER (Name),
-  PID  INTEGER REFERENCES PLATZ (PID),
-  Datum DATE NOT NULL CHECK(Datum==strftime('%YYYY-%MM-%DD',Datum)),
+);
+CREATE TABLE BESETZT(
+  Personalnummer VARCHAR REFERENCES NUTZER (Personalnummer),
+  PID            INTEGER REFERENCES PLATZ (PID),
+  Datum          DATE NOT NULL CHECK(Datum==strftime('%YYYY-%MM-%DD',Datum) AND DATE() <= Datum AND Datum <= DATE(DATE(),'28 days')),--Planung für die nächsten zwei Wochen ab heute möglich
+  Nachmittag     BOOLEAN NOT NULL,--Ist der Wert 0 ist es Vormittag, ist der Wert 1 ist es Nachmittag
   PRIMARY KEY (
-      Name,
-      PID
+    Personalnummer,
+    PID,
+    Datum,
+    Nachmittag
   )
-};
+);

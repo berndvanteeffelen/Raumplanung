@@ -24,29 +24,27 @@
 
 \section*{ohne Verschmelzung}
 \begin{tabular}{l l}
-Nutzer & $\underline{Name}$, Passwort\\
+Nutzer & $\underline{Personalnummer}$, Passwort\\
+Admin & $\overline{\underline{Nutzer.Personalnummer}}$\\
 Geraet & $\underline{Typ}$\\
-Standort & $\underline{SID}$, PLZ, Stadt, Straße, Hausnummer\\
-Raum & $\underline{RID}$, Nummer, Etage\\
-Platz & $\underline{PID}$\\
-nutzt & $\underline{\overline{Nutzer.Name}, \overline{Geraet.Typ}}$\\
+Raum & $\underline{Nummer}$\\
+Platz & $\underline{PID}$, Position\\
+nutzt & $\underline{\overline{Nutzer.Personalnummer}, \overline{Geraet.Typ}}$\\
 verfuegbar & $\underline{\overline{Platz.PID}, \overline{Geraet.Typ}}$\\
-besetzt & $\underline{\overline{Nutzer.Name}, \overline{Platz.PID}}$, Datum\\
-arbeitet & $\underline{\overline{Nutzer.Name}}$, $\overline{Standort.SID}$\\
-enthaelt & $\overline{Raum.RID}$, $\underline{\overline{Platz.PID}}$\\
-zu & $\underline{\overline{Raum.RID}}$, $\overline{Standort.SID}$\\
+besetzt & $\underline{\overline{Nutzer.Personalnummer}, \overline{Platz.PID}, Datum, Nachmittag}$\\
+enthaelt & $\overline{Raum.Nummer}$, $\underline{\overline{Platz.PID}}$\\
 \end{tabular}
 
 \section*{mit Verschmelzung}
 \begin{tabular}{l l}
-Nutzer & $\underline{Name}$, Passwort, $\overline{Standort.SID}$\\
+Nutzer & $\underline{Personalnummer}$, Passwort\\
+Admin & $\overline{\underline{Nutzer.Personalnummer}}$\\
 Geraet & $\underline{Typ}$\\
-Standort & $\underline{SID}$, PLZ, Stadt, Straße, Hausnummer\\
-Raum & $\underline{RID}$, Nummer, Etage, $\overline{Standort.SID}$\\
-Platz & $\underline{PID},\overline{Raum.RID}$\\
-nutzt & $\underline{\overline{Nutzer.Name}, \overline{Geraet.Typ}}$\\
+Raum & $\underline{Nummer}$\\
+Platz & $\underline{PID}$,Position,$\overline{Raum.Nummer}$\\
+nutzt & $\underline{\overline{Nutzer.Personalnummer}, \overline{Geraet.Typ}}$\\
 verfuegbar & $\underline{\overline{Platz.PID}, \overline{Geraet.Typ}}$\\
-besetzt & $\underline{\overline{Nutzer.Name}, \overline{Platz.PID}}$, Datum\\
+besetzt & $\underline{\overline{Nutzer.Personalnummer}, \overline{Platz.PID}, Datum, Nachmittag}$\\
 \end{tabular}
 
 \begin{spacing}{10}
