@@ -1,6 +1,6 @@
 package com.Raumplanung.rest;
 
-import com.Raumplanung.services.NutzerService;
+import com.Raumplanung.application.services.NutzerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

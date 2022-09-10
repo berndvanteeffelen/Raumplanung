@@ -1,5 +1,5 @@
 CREATE TABLE NUTZER(
-  Personalnummer INTEGER NOT NULL CHECK(Personalnummer>1 AND Personalnummer<10000000000) PRIMARY KEY,--Identifikationsnummer des Nutzers
+  Personalnummer INTEGER NOT NULL CHECK(Personalnummer>0 AND Personalnummer<1000000000) PRIMARY KEY,--Identifikationsnummer des Nutzers
   Passwort       VARCHAR NOT NULL CHECK(length(Passwort)>7 AND length(Passwort)<21 AND Passwort NOT GLOB '*[^ -~]*' AND Passwort GLOB '*[A-Z]*' AND Passwort GLOB '*[a-z]*' AND Passwort GLOB '*[0-9]*')--Passwort muss 8-20 Zeichen enthalten, davon je mindestens ein Klein- und ein Großbuchstabe und eine Zahl
 );
 CREATE TABLE ADMIN(

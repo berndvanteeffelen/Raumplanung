@@ -1,4 +1,4 @@
-package com.Raumplanung.services;
+package com.Raumplanung.application.services;
 
 import org.springframework.stereotype.Service;
 
