@@ -19,9 +19,13 @@ repositories {
 }
 
 dependencies {
-	implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
-	implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0'
-	implementation group: 'javax.inject', name: 'javax.inject', version: '1'
+	implementation 'org.xerial:sqlite-jdbc:3.7.2'
+	implementation 'org.glassfish.hk2:hk2-core:3.0.3'
+	implementation 'org.glassfish.jersey.media:jersey-media-multipart:3.1.0-M7'
+	implementation 'org.glassfish.jersey.containers:jersey-container-jdk-http:3.1.0-M7'
+	implementation 'org.glassfish.jersey.core:jersey-server:3.1.0-M7'
+	implementation 'com.sun.activation:javax.activation:1.2.0'
+	implementation 'com.sun.xml.ws:jaxws-rt:2.3.3'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'

@@ -1,7 +1,5 @@
 package com.Raumplanung.application.services;
 
-import org.springframework.stereotype.Service;
-
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

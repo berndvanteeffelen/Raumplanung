@@ -1,10 +1,9 @@
 package com.Raumplanung.model;
 
-import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
-import java.util.List;
-
-@Repository
 public interface NutzerRepository{
-	List<Nutzer> findByPersonalnummer(int personalnummer);
+	Optional<Nutzer> findByPersonalnummer(int personalnummer);
+
+	long countByPersonalnummerAndPasswort(int personalnummer,String passwort);
 }

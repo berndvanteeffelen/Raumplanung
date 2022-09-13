@@ -1,16 +1,28 @@
 package com.Raumplanung.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.security.Principal;
+import java.util.Collections;
+import java.util.Set;
 
-@Entity
-public class Nutzer {
+public class Nutzer implements Principal {
 
-	@Id
-	@Column(nullable = false,unique = true)
-	private int personalnummer;
+	private final int personalnummer;
+	private final Set<Rolle> roles;
 
-	@Column(nullable = false)
-	private String passwort;
+	public Nutzer(int personalnummer){
+		this(personalnummer, Collections.emptySet());
+	}
+
+	public Nutzer(int personalnummer, Set<Rolle> roles){
+		this.personalnummer=personalnummer;
+		this.roles=roles;
+	}
+
+	public String getName() {
+		return String.valueOf(personalnummer);
+	}
+
+	public Set<Rolle> getRollen() {
+		return Collections.unmodifiableSet(roles);
+	}
 }
