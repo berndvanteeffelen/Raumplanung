@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.sql.DataSource;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 
 @Controller
 public class NutzerController {

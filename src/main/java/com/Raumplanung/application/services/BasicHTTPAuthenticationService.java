@@ -2,7 +2,7 @@ package com.Raumplanung.application.services;
 
 import java.util.Base64;
 
-import static javax.ws.rs.core.SecurityContext.BASIC_AUTH;
+import static jakarta.ws.rs.core.SecurityContext.BASIC_AUTH;
 
 public class BasicHTTPAuthenticationService extends HTTPAuthenticationService {
 	public final boolean authenticate(String base64EncodedCredentials) {
