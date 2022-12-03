@@ -1,28 +1,18 @@
 package com.Raumplanung.model;
 
-import java.security.Principal;
-import java.util.Collections;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.Data;
+
 import java.util.Set;
 
-public class Nutzer implements Principal {
-
-	private final int personalnummer;
-	private final Set<Rolle> roles;
-
-	public Nutzer(int personalnummer){
-		this(personalnummer, Collections.emptySet());
-	}
-
-	public Nutzer(int personalnummer, Set<Rolle> roles){
-		this.personalnummer=personalnummer;
-		this.roles=roles;
-	}
-
-	public String getName() {
-		return String.valueOf(personalnummer);
-	}
-
-	public Set<Rolle> getRollen() {
-		return Collections.unmodifiableSet(roles);
-	}
+@Data
+@Entity
+public class Nutzer{
+	@Id
+	@GeneratedValue()
+	private int personalnummer;
+	private Set<Rolle> roles;
+	
 }
