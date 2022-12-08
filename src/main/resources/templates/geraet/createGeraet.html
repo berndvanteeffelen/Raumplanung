@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.com">
+<head>
+	<meta charset="UTF-8">
+	<title>Geräteerstellung</title>
+</head>
+<body>
+<form method="post" th:object="${geraet}" th:action="@{/neuesGeraet}">
+	<input type="text" th:field="*{typ}" placeholder="Typ">
+	<input type="submit" value="Bestätigen" class="btn btn-outline-success"/>
+</form>
+</body>
+</html>

@@ -6,9 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Nutzer{
+public class Geraet {
 	@Id
-	private int personalnummer;
-	private Rolle rolle;
-	
+	private String typ;
 }

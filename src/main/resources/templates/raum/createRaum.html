@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.com">
+<head>
+	<meta charset="UTF-8">
+	<title>Raumerstellung</title>
+</head>
+<body>
+<form method="post" th:object="${raum}" th:action="@{/neuerRaum}">
+	<input type="number" th:field="*{nummer}" placeholder="Nummer">
+	<input type="submit" value="Bestätigen" class="btn btn-outline-success"/>
+</form>
+</body>
+</html>

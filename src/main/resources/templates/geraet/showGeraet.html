@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.com">
+<head>
+	<meta charset="UTF-8">
+	<title>Geräteübersicht</title>
+</head>
+<body>
+<div th:each="geraet: ${geraete}">
+	<p th:text="'Typ='+${geraet.typ}"></p>
+	<form method="POST" th:action="@{/entferneGeraet/{id}(id=${geraet.typ})}">
+		<button type="submit" name="submit" value="delete">Gerät Entfernen</button>
+	</form>
+</div>
+<div>
+	<form method="GET" th:action="@{/neuesGeraet}">
+		<button type="submit" name="submit" value="add">Neues Gerät</button>
+	</form>
+</div>
+</body>
+</html>

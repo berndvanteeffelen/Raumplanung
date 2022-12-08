@@ -36,7 +36,7 @@ CREATE TABLE BESETZT(
   Personalnummer VARCHAR REFERENCES NUTZER (Personalnummer),
   PID            INTEGER REFERENCES PLATZ (PID),
   Datum          DATE NOT NULL CHECK(Datum==strftime('%YYYY-%MM-%DD',Datum) AND DATE() <= Datum AND Datum <= DATE(DATE(),'28 days')),--Planung für die nächsten zwei Wochen ab heute möglich
-  Nachmittag     BOOLEAN NOT NULL,--Ist der Wert 0 ist es Vormittag, ist der Wert 1 ist es Nachmittag
+  Nachmittag     BOOLEAN NOT NULL,--Ist der Wert 0, ist es Vormittag. Ist der Wert 1, ist es Nachmittag.
   PRIMARY KEY (
     Personalnummer,
     PID,
