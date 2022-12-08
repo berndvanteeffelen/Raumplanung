@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 
 @Controller
 public class NutzerController {
@@ -22,11 +22,14 @@ public class NutzerController {
     @GetMapping("/neuerNutzer")//TBC
     public String createNutzer(Model model){
         model.addAttribute("nutzer",new Nutzer());
-        return "createNutzer";
+        return "nutzer/createNutzer";
     }
     
     @PostMapping("/neuerNutzer")
     public String saveNutzer(Nutzer nutzer){
+        if(nutzer.getPersonalnummer()<1){//TO DO: Error mapping
+            return "home";
+        }
         nutzer.setRolle(Rolle.NUTZER);
         nutzerRepository.save(nutzer);
         return "home";
@@ -35,18 +38,32 @@ public class NutzerController {
     @GetMapping("/nutzerUebersicht")
     public String showNutzer(Model model){
         model.addAttribute("nutzers",nutzerRepository.findAll());
-        return "showNutzer";
+        return "nutzer/showNutzer";
     }
 
-    @GetMapping("/entferneNutzer")
-    public String deleteNutzer(Model model){
-        model.addAttribute("nutzer",new Nutzer());
-        return "deleteNutzer";
+    @PostMapping("/entferneNutzer/{id}")
+    public String deletedNutzer(@PathVariable("id")int personalnummer){
+        nutzerRepository.deleteById(personalnummer);
+        return "home";
     }
 
-    @PostMapping("/entferneNutzer")
-    public String deletedNutzer(Nutzer nutzer){
-        nutzerRepository.deleteById(nutzer.getPersonalnummer());
+    @PostMapping("/neuerAdmin/{id}")
+    public String neuerAdmin(@PathVariable("id")int personalnummer){
+        if(nutzerRepository.findById(personalnummer).isPresent()){
+            Nutzer nutzer=nutzerRepository.findById(personalnummer).get();
+            nutzer.setRolle(Rolle.ADMIN);
+            nutzerRepository.save(nutzer);
+        }
+        return "home";
+    }
+
+    @PostMapping("/entferneAdmin/{id}")
+    public String entferneAdmin(@PathVariable("id")int personalnummer){
+        if(nutzerRepository.findById(personalnummer).isPresent()){
+            Nutzer nutzer=nutzerRepository.findById(personalnummer).get();
+            nutzer.setRolle(Rolle.NUTZER);
+            nutzerRepository.save(nutzer);
+        }
         return "home";
     }
 }
